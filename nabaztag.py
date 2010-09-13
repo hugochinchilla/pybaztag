@@ -6,6 +6,8 @@ apiurl 	= "http://api.nabaztag.com/vl/FR/api.jsp"
 sn 		= "***"
 token 	= "***"
 
+default_voice = "ES-Alfonsina"
+
 class Nabaztag:
 	def __init__(self, sn, token):
 		self.sn = sn
@@ -50,9 +52,11 @@ class Nabaztag:
 		#TODO: check for CHORSEND response
 		return rsp
 	
-	def sendTTS(self, text):
+	def sendTTS(self, text, voice=None):
 		"""Send text for text to speech."""
-		rsp = self.sendCommands( [ ("tts", text), ])
+		if not voice:
+			voice = default_voice
+		rsp = self.sendCommands( [ ("tts", text), ("voice", voice), ])
 		#TODO: check for *** response
 		return rsp
 	
